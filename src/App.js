@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Container, Grid, Typography } from "@mui/material";
+import LaunchList from "./components/Launchlist";
+import LaunchDetails from "./components/LaunchDetails";
 
-function App() {
+const App = () => {
+  const [launches, setLaunches] = useState([]);
+  const [selectedLaunch, setSelectedLaunch] = useState(null);
+
+  useEffect(() => {
+    const fetchLaunches = async () => {
+      const result = await axios.get("https://api.spacexdata.com/v4/launches");
+      setLaunches(result.data);
+    };
+
+    fetchLaunches();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Typography variant="h2" className="text-center my-8">
+        SpaceX Launches
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <LaunchList
+            launches={launches}
+            setSelectedLaunch={setSelectedLaunch}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {selectedLaunch && <LaunchDetails launch={selectedLaunch} />}
+        </Grid>
+      </Grid>
+    </Container>
   );
-}
+};
 
 export default App;
