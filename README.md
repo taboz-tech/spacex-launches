@@ -21,12 +21,12 @@ This project is a React web application that displays information about SpaceX l
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/spacex-launch-information.git
+git clone https://github.com/taboz-tech/spacex-launches.git
 
 
 2. Navigate to the project directory:
 
-cd spacex-launch-information
+cd spacex-launches
 
 
 3. Install dependencies:
